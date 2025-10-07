@@ -7,7 +7,44 @@ public class Main {
         for (Punto p : puntos){ //Este bucle recorre cada punto de la lista y lo muestra en consola
             System.out.println(p);
         }
+        System.out.println("=== Método Exhaustivo ===");
         encontrarParMasCercano(puntos); //Llamamos al método que busca el par de puntos más cercanos entre todos los puntos generados, mostrando el resultado
+        System.out.println("=== Método con Poda ===");
+        encontrarParMasCercanoConPoda(puntos);
+    }
+
+    private static void buscarParMasCercano(ArrayList<Punto> puntos, boolean usarPoda) {
+
+        if (puntos.size() < 2) { //Nos aseguramos de que haya más de 2 puntos en la lista
+            System.out.println("Necesitas al menos dos puntos");
+            return;
+        }
+        //Si usas poda, ordenamos primero por x
+        if (usarPoda) {
+            puntos.sort((pA, pB) -> Double.compare(pA.x, pB.x));
+        }
+
+        double distanciaMin = Double.MAX_VALUE;
+        Punto p1 = null, p2 = null;
+
+        for (int i = 0; i < puntos.size() - 1; i++){
+            for (int j = i + 1; j < puntos.size(); j++){
+                if (usarPoda) {
+                    //Condición para podar
+                    if ((puntos.get(j).x - puntos.get(i).x) >= distanciaMin) {
+                        break;
+                    }
+                }
+                double d = Distancia(puntos.get(i), puntos.get(j));
+                if (d < distanciaMin) {
+                    distanciaMin = d;
+                    p1 = puntos.get(i);
+                    p2 = puntos.get(j);
+                }
+            } 
+        }
+        System.out.println("Par más cercano: " + p1 + " y " + p2);
+        System.out.println("Distancia mínima: " + distanciaMin);
     }
 
     public static ArrayList<Punto> generarPuntosAleatorios(int cantidad){ //Este método:
@@ -28,27 +65,11 @@ public class Main {
     }
 
     public static void encontrarParMasCercano(ArrayList<Punto> puntos){
+        buscarParMasCercano(puntos, false);
+        
+    }
 
-        if (puntos.size() < 2) { //Nos aseguramos de que haya más de 2 puntos en la lista
-            System.out.println("Necesitas al menos dos puntos");
-            return;
-        }
-        double distanciaMin = Double.MAX_VALUE; //Esta variable tiene el mayor valor posible para un número decimal y nos aseguramos de que cualquier distancia
-        //real que calcules entre dos puntos será menor y la primera comparación siempre actualizará ese valor
-        Punto p1 = null, p2 = null; //Estas variables servirán para guardar el par de puntos más cercanos
-
-        for (int i = 0; i < puntos.size() - 1; i++){
-            for (int j = i + 1; j < puntos.size(); j++){
-                double d = Distancia(puntos.get(i), puntos.get(j));
-                if (d < distanciaMin) {
-                    distanciaMin = d;
-                    p1 = puntos.get(i);
-                    p2 = puntos.get(j);
-                }
-            }
-        }
-
-        System.out.println("Par más cercano: " + p1 + " y " + p2);
-        System.out.println("Distancia mínima: " + distanciaMin);
+    public static void encontrarParMasCercanoConPoda(ArrayList<Punto> puntos){
+        buscarParMasCercano(puntos, true);
     }
 }

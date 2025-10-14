@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Random; //Librería que permite generar números aleatorios
 
 public class Punto {
     public double x;

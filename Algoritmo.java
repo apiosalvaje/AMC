@@ -40,4 +40,14 @@ public class Algoritmo {
         System.out.println("Par más cercano: " + p1 + " y " + p2);
         System.out.println("Distancia mínima: " + distanciaMin);
     }
+
+    
+    public static void encontrarParMasCercano(ArrayList<Punto> puntos){
+        buscarParMasCercano(puntos, false);
+        
+    }
+
+    public static void encontrarParMasCercanoConPoda(ArrayList<Punto> puntos){
+        buscarParMasCercano(puntos, true);
+    }
 }

@@ -10,6 +10,7 @@ public class Main {
         Algoritmo.encontrarParMasCercano(puntos); //Llamamos al método que busca el par de puntos más cercanos entre todos los puntos generados, mostrando el resultado
         System.out.println("=== Método con Poda ===");
         Algoritmo.encontrarParMasCercanoConPoda(puntos);
+        System.out.println("=== Método Divide y Vencerás ===");
+        Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
     }
-
 }

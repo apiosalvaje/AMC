@@ -18,12 +18,12 @@ public class Punto {
     public static ArrayList<Punto> generarPuntosAleatorios(int cantidad){ //Este método:
         ArrayList<Punto> lista = new ArrayList<>(); //Crea una lista vacía de puntos
         Random rnd = new Random();
-        for (int i = 0; i < cantidad; i++) { //Utiliza este bucle para crear la cantidad de puntos solicitada
-            double x = rnd.nextDouble() * 100; //Para cada punto, genera dos números aleatorios (x,y), ambos entre 0 y 100
+        for (int i = 0; i < cantidad; i++) { //Utilizamos este bucle para crear la cantidad de puntos solicitada
+            double x = rnd.nextDouble() * 100; //Para cada punto, generamos dos números aleatorios (x,y), ambos entre 0 y 100
             double y = rnd.nextDouble() * 100;
-            lista.add(new Punto(x, y)); //Crea el objeto 'Punto' con esas coordenadas y lo añade a la lista
+            lista.add(new Punto(x, y)); //Creamos el objeto 'Punto' con esas coordenadas y lo añadimos a la lista
         }
-        return lista; //Devuelve la lista
+        return lista; //Devolvemos la lista
     }
 
 }

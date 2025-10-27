@@ -6,11 +6,11 @@ public class Main {
         for (Punto p : puntos){ //Este bucle recorre cada punto de la lista y lo muestra en consola
             System.out.println(p);
         }
-        System.out.println("=== Método Exhaustivo ===");
+        System.out.println("\n=== Método Exhaustivo ===");
         Algoritmo.encontrarParMasCercano(puntos); //Llamamos al método que busca el par de puntos más cercanos entre todos los puntos generados, mostrando el resultado
-        System.out.println("=== Método con Poda ===");
+        System.out.println("\n=== Método con Poda ===");
         Algoritmo.encontrarParMasCercanoConPoda(puntos);
-        System.out.println("=== Método Divide y Vencerás ===");
+        System.out.println("\n=== Método Divide y Vencerás ===");
         Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
     }
 }

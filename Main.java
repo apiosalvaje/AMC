@@ -12,5 +12,7 @@ public class Main {
         Algoritmo.encontrarParMasCercanoConPoda(puntos);
         System.out.println("\n=== Método Divide y Vencerás ===");
         Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
+        System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+        Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
     }
 }

@@ -119,16 +119,6 @@ public class Algoritmo {
         return new ResultadoPar(p1, p2, minDist);
     }
 
-    
-    public static void encontrarParMasCercano(ArrayList<Punto> puntos){
-        buscarParMasCercano(puntos, false);
-        
-    }
-
-    public static void encontrarParMasCercanoConPoda(ArrayList<Punto> puntos){
-        buscarParMasCercano(puntos, true);
-    }
-
     public static void encontrarParMasCercanoDivideYVencerasOpt(Punto[] puntos) {
         Punto[] ptsX = puntos.clone();
         Arrays.sort(ptsX, Comparator.comparingDouble(p -> p.x));

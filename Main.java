@@ -10,14 +10,6 @@ public class Main {
         for (Punto p : puntos){ //Este bucle recorre cada punto de la lista y lo muestra en consola
             System.out.println(p);
         }
-        System.out.println("\n=== Método Exhaustivo ===");
-        Exhaustivo.encontrarParMasCercano(puntos); //Llamamos al método que busca el par de puntos más cercanos entre todos los puntos generados, mostrando el resultado
-        System.out.println("\n=== Método con Poda ===");
-        ConPoda.encontrarParMasCercanoConPoda(puntos);
-        System.out.println("\n=== Método Divide y Vencerás ===");
-        Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
-        System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
-        Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
 
         do {
             System.out.println("\n=== Menú Práctica 1 ===");
@@ -26,6 +18,7 @@ public class Main {
             System.out.println("\n=== 3. Comprobar Estrategias ===");
             System.out.println("\n=== 4. Comparar todas las estrategias ===");
             System.out.println("\n=== 5. Comparar 2 estrategias ===");
+            System.out.println("\n=== 6. Generar dataset Caso Peor ===");
             System.out.println("\n=== 0. Salir ===");
             System.out.println("\nElige la opcion");
             opcion = sc.nextInt();
@@ -38,9 +31,60 @@ public class Main {
                 
                     break;
                 case 3:
+                    int estrategia;
+                    do {
+                        System.out.println("\n=== Comparaciones de Estrategias ===");
+                        System.out.println("\n1. Exhaustivo");
+                        System.out.println("\n2. Con Poda");
+                        System.out.println("\n3. DivideYVenceras");
+                        System.out.println("\n4. DivideYVencerasOpt");
+                        System.out.println("\n0. Salir");
+                        System.out.println("\nElige una estrategia");
+                        estrategia = sc.nextInt();
+
+                        switch (estrategia) {
+                            case 1:
+                                System.out.println("\n=== Método Exhaustivo ===");
+                                Exhaustivo.buscarParMasCercano(puntos, false);
+
+                                break;
+                            case 2:
+                                System.out.println("\n=== Método con Poda ===");
+                                ConPoda.encontrarParMasCercanoConPoda(puntos);
+                                
+                                break;
+                            case 3:
+                                System.out.println("\n=== Método Divide y Vencerás ===");
+                                Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
+                                
+                                break;
+                            case 4:
+                                System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+                                Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
+                                
+                                break;
+                            case 0:
+                                System.out.println("\nVuelve pronto!");
+                                break;
+                        
+                            default:
+                                System.out.println("\nNúmero equivocado");
+                                break;
+                        }
+
+                    } while (estrategia != 0);
+                    
 
                     break;
                 case 4:
+                    System.out.println("\n=== Método Exhaustivo ===");
+                    Exhaustivo.buscarParMasCercano(puntos, false); 
+                    System.out.println("\n=== Método con Poda ===");
+                    ConPoda.encontrarParMasCercanoConPoda(puntos);
+                    System.out.println("\n=== Método Divide y Vencerás ===");
+                    Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
+                    System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+                    Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
 
                     break;
                 case 5:
@@ -89,12 +133,15 @@ public class Main {
                     
 
                     break;
+                case 6:
+
+                    break;
                 case 0:
                     System.out.println("\nGracias por la visita");
                     break;
             
                 default:
-                System.out.println("\nNúmero equivocado");
+                    System.out.println("\nNúmero equivocado");
                     break;
             }
             

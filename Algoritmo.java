@@ -3,45 +3,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Algoritmo {
-    public static double distancia(Punto a, Punto b){
-        double dx = a.x - b.x;
-        double dy = a.y - b.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    public static void buscarParMasCercano(ArrayList<Punto> puntos, boolean usarPoda) {
-
-        if (puntos.size() < 2) { //Nos aseguramos de que haya más de 2 puntos en la lista
-            System.out.println("Necesitas al menos dos puntos");
-            return;
-        }
-        //Si usas poda, ordenamos primero por x
-        if (usarPoda) {
-            puntos.sort((pA, pB) -> Double.compare(pA.x, pB.x));
-        }
-
-        double distanciaMin = Double.MAX_VALUE;
-        Punto p1 = null, p2 = null;
-
-        for (int i = 0; i < puntos.size() - 1; i++){
-            for (int j = i + 1; j < puntos.size(); j++){
-                if (usarPoda) {
-                    //Condición para podar
-                    if ((puntos.get(j).x - puntos.get(i).x) >= distanciaMin) {
-                        break;
-                    }
-                }
-                double d = distancia(puntos.get(i), puntos.get(j));
-                if (d < distanciaMin) {
-                    distanciaMin = d;
-                    p1 = puntos.get(i);
-                    p2 = puntos.get(j);
-                }
-            } 
-        }
-        System.out.println("Par más cercano: " + p1 + " y " + p2);
-        System.out.println("Distancia mínima: " + distanciaMin);
-    }
 
     public static void encontrarParMasCercanoDivideYVenceras(ArrayList<Punto> puntos) {
         ArrayList<Punto> puntosOrdenadosX = new ArrayList<>(puntos);
@@ -92,7 +53,7 @@ public class Algoritmo {
         Punto p1 = null, p2 = null;
         for (int i = 0; i < pts.length - 1; i++) {
             for (int j = i + 1; j < pts.length; j++) {
-                double d = distancia(pts[i], pts[j]);
+                double d = DistanciaEc.distancia(pts[i], pts[j]);
                 if (d < minDist) {
                     minDist = d;
                     p1 = pts[i];
@@ -108,7 +69,7 @@ public class Algoritmo {
         Punto p1 = menorActual.p1, p2 = menorActual.p2;
         for (int i = 0; i < franja.size() - 1; i++) {
             for (int j = i + 1; j < franja.size() && (franja.get(j).y - franja.get(i).y) < minDist; j++) {
-                double d = distancia(franja.get(i), franja.get(j));
+                double d = DistanciaEc.distancia(franja.get(i), franja.get(j));
                 if (d < minDist) {
                     minDist = d;
                     p1 = franja.get(i);
@@ -170,7 +131,7 @@ public class Algoritmo {
         // Comparar la franja sólo con los próximos 7 siguiendo orden Y
         for (int i = 0; i < fi; i++) {
             for (int j = i + 1; j < fi && (franja[j].y - franja[i].y) < dmin; j++) {
-                double dist = distancia(franja[i], franja[j]);
+                double dist = DistanciaEc.distancia(franja[i], franja[j]);
                 if (dist < dmin) {
                     dmin = dist;
                     menor = new ResultadoPar(franja[i], franja[j], dist);

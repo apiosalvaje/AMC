@@ -1,12 +1,15 @@
 import java.util.ArrayList; //Librería para crear listas dinámicasde objetos
 import java.util.Scanner;
 
+import Algoritmos.*;
+import Datos.*;
+
 public class Main {
-    public static void main(String[] args){
+    public void main(String[] args){
         int opcion;
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<Punto> puntos = Punto.generarPuntosAleatorios(10); //Llamamos a la función 'generarPuntosAleatorios' para crear una lista de 10 puntos aleatorios
+        ArrayList<Punto> puntos = this  .generarPuntosAleatorios(); //Llamamos a la función 'generarPuntosAleatorios' para crear una lista de 10 puntos aleatorios
         for (Punto p : puntos){ //Este bucle recorre cada punto de la lista y lo muestra en consola
             System.out.println(p);
         }

@@ -1,10 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+package Algoritmos;
 
-public class Algoritmo {
+import java.util.*;
+import Datos.*;
 
-    public static void encontrarParMasCercanoDivideYVenceras(ArrayList<Punto> puntos) {
+public abstract class Algoritmo { //Clase base para otras clases que heredan
+
+    public DistanciaEuc DE = new DistanciaEuc();
+    public List<Punto> ParMejor = new ArrayList<>();
+    public List<Punto> dataset;
+    public double MejorDis = Double.POSITIVE_INFINITY;
+
+    public int distanciacalculada (){
+        return DE.calculo;
+    }
+
+    public double mejor_distancia(){
+        return MejorDis;
+    }
+
+    public abstract void run();
+
+    /*public static void encontrarParMasCercanoDivideYVenceras(ArrayList<Punto> puntos) {
         ArrayList<Punto> puntosOrdenadosX = new ArrayList<>(puntos);
         puntosOrdenadosX.sort(Comparator.comparingDouble(p -> p.x));
         ArrayList<Punto> puntosOrdenadosY = new ArrayList<>(puntos);
@@ -28,9 +44,9 @@ public class Algoritmo {
         for (Punto p : ptsY) {
             if (p.x <= mitad.x) izquierdaY.add(p);
             else derechaY.add(p);
-        }
+        }*/
 
-        ArrayList<Punto> izquierdaX = new ArrayList<>(ptsX.subList(0, mid));
+        /*ArrayList<Punto> izquierdaX = new ArrayList<>(ptsX.subList(0, mid));
         ArrayList<Punto> derechaX = new ArrayList<>(ptsX.subList(mid, n));
 
         ResultadoPar resultadoIzq = dividirYVencer(izquierdaX, izquierdaY);
@@ -53,7 +69,7 @@ public class Algoritmo {
         Punto p1 = null, p2 = null;
         for (int i = 0; i < pts.length - 1; i++) {
             for (int j = i + 1; j < pts.length; j++) {
-                double d = DistanciaEc.distancia(pts[i], pts[j]);
+                double d = DistanciaEuc.calcula(pts[i], pts[j]);
                 if (d < minDist) {
                     minDist = d;
                     p1 = pts[i];
@@ -69,7 +85,7 @@ public class Algoritmo {
         Punto p1 = menorActual.p1, p2 = menorActual.p2;
         for (int i = 0; i < franja.size() - 1; i++) {
             for (int j = i + 1; j < franja.size() && (franja.get(j).y - franja.get(i).y) < minDist; j++) {
-                double d = DistanciaEc.distancia(franja.get(i), franja.get(j));
+                double d = DistanciaEuc.distancia(franja.get(i), franja.get(j));
                 if (d < minDist) {
                     minDist = d;
                     p1 = franja.get(i);
@@ -131,7 +147,7 @@ public class Algoritmo {
         // Comparar la franja sólo con los próximos 7 siguiendo orden Y
         for (int i = 0; i < fi; i++) {
             for (int j = i + 1; j < fi && (franja[j].y - franja[i].y) < dmin; j++) {
-                double dist = DistanciaEc.distancia(franja[i], franja[j]);
+                double dist = DistanciaEuc.distancia(franja[i], franja[j]);
                 if (dist < dmin) {
                     dmin = dist;
                     menor = new ResultadoPar(franja[i], franja[j], dist);
@@ -140,5 +156,5 @@ public class Algoritmo {
         }
 
         return menor;
-    }
+    }*/
 }

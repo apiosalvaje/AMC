@@ -1,0 +1,30 @@
+package Algoritmos;
+
+import java.util.*;
+import Datos.*;
+
+public class ConPoda extends Algoritmo{
+
+     public ConPoda(List<Punto> dataset){
+        this.dataset = dataset;
+    }
+
+    @Override
+    public void run() {
+        double distanciaMin = mejor_distancia();
+
+        for (int i = 0; i < dataset.size() - 1; i++){
+            for (int j = i + 1; j < dataset.size(); j++){
+                if (Math.abs(this.dataset.get(i).getX() - this.dataset.get(j).getX()) < distanciaMin) {
+                    double d = this.DE.calcula(this.dataset.get(i), this.dataset.get(j));
+                    if (d < distanciaMin) {
+                        distanciaMin = d;
+                        ParMejor.add(this.dataset.get(i));
+                        ParMejor.add(this.dataset.get(j));
+                }
+                }
+            } 
+        }
+        this.MejorDis = distanciaMin;
+    }
+}

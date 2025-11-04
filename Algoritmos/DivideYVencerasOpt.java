@@ -73,25 +73,43 @@ public class DivideYVencerasOpt extends Algoritmo {
     }
 
     private List<Punto> buscarParConPoda(List<Punto> puntos) {
-        ConPoda conpoda = new ConPoda(puntos);
-        conpoda.run();  
+    // La lista puntos debe estar ordenada por Y al llamar a este método
+    ConPoda conpoda = new ConPoda(puntos);
     
-        // También puedes guardar la distancia si quieres usarla después
-        if (conpoda.mejor_distancia() < this.MejorDis) {
-            this.ParMejor.clear();
-            this.ParMejor.addAll(conpoda.ParMejor);
-            this.MejorDis = conpoda.MejorDis;
+    double distanciaMin = Double.POSITIVE_INFINITY;
+    List<Punto> parMejorLocal = new ArrayList<>();
+
+    for (int i = 0; i < puntos.size(); i++) {
+        Punto p1 = puntos.get(i);
+
+        for (int j = i + 1; j < puntos.size() && j <= i + 12; j++) {
+            Punto p2 = puntos.get(j);
+
+            double dx = Math.abs(p1.getX() - p2.getX());
+            if (dx >= distanciaMin) {
+                break; // poda temprana si hace falta
+            }
+
+            double d = conpoda.DE.calcula(p1, p2);
+            if (d < distanciaMin) {
+                distanciaMin = d;
+                parMejorLocal.clear();
+                parMejorLocal.add(p1);
+                parMejorLocal.add(p2);
+            }
         }
-        this.DE.calculo += conpoda.distanciacalculada();
-
-        return conpoda.ParMejor;
     }
 
-    public double ejecutarConMedicion() {
-        long inicio = System.nanoTime();
-        run();
-        long fin = System.nanoTime();
-        return (fin - inicio) / 1_000_000.0; // en milisegundos con decimales
+    if (distanciaMin < this.MejorDis) {
+        this.ParMejor.clear();
+        this.ParMejor.addAll(parMejorLocal);
+        this.MejorDis = distanciaMin;
     }
+    
+    this.DE.calculo += conpoda.distanciacalculada();
+
+    return this.ParMejor;
+}
+
 
 }

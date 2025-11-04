@@ -23,4 +23,11 @@ public abstract class Algoritmo { //Clase base para otras clases que heredan
     public List<Punto> parmejor(){
         return ParMejor;
     }
+
+    public double ejecutarConMedicion() {
+        long inicio = System.nanoTime();
+        this.run();
+        long fin = System.nanoTime();
+        return (fin - inicio) / 1_000_000.0; // en milisegundos con decimales
+    }
 }

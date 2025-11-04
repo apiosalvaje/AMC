@@ -96,11 +96,9 @@ public class Main {
                         double tiempo;
    
                         DCargadoCopia = Dataset.copia(DCargado);
-                        Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Exhaustivo ===");
                         algoritmo = new Exhaustivo(DCargadoCopia);
-                        Exhaustivo ex = new Exhaustivo(DCargadoCopia);
-                        tiempo = ex.ejecutarConMedicion();
+                        tiempo = algoritmo.ejecutarConMedicion();
                         System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println("Distancia: " + algoritmo.MejorDis);
                         System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
@@ -111,8 +109,7 @@ public class Main {
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método con Poda ===");
                         algoritmo = new ConPoda(DCargadoCopia);
-                        ConPoda cp = new ConPoda(DCargadoCopia);
-                        tiempo = cp.ejecutarConMedicion();
+                        tiempo = algoritmo.ejecutarConMedicion();
                         System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println("Distancia: " + algoritmo.MejorDis);
                         System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
@@ -123,8 +120,7 @@ public class Main {
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Divide y Vencerás ===");
                         algoritmo = new DivideYVenceras(DCargadoCopia);
-                        DivideYVenceras DV = new DivideYVenceras(DCargadoCopia);
-                        tiempo = DV.ejecutarConMedicion();
+                        tiempo = algoritmo.ejecutarConMedicion();
                         System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println("Distancia: " + algoritmo.MejorDis);
                         System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
@@ -135,8 +131,7 @@ public class Main {
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
                         algoritmo = new DivideYVencerasOpt(DCargadoCopia);
-                        DivideYVencerasOpt DVO = new DivideYVencerasOpt(DCargadoCopia);
-                        tiempo = DVO.ejecutarConMedicion();
+                        tiempo = algoritmo.ejecutarConMedicion();
                         System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println("Distancia: " + algoritmo.MejorDis);
                         System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
@@ -161,7 +156,7 @@ public class Main {
                             DCargado = Dataset.generarPuntosAleatorios(talla);
 
                             DCargadoCopia = Dataset.copia(DCargado);
-                            Dataset.OrdenarDataset(DCargadoCopia);
+                            //Dataset.OrdenarDataset(DCargadoCopia);
                             Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
                             sumExhaustivo += ex1.ejecutarConMedicion();
                         
@@ -198,60 +193,222 @@ public class Main {
                         System.out.println("\nElige una pareja");
                         pareja = sc.nextInt();
 
+                        int[] tallas2 = {6000, 6500, 7000, 7500, 8000};
+                        NExperimentos = 10;
+
                         switch (pareja) {
                             case 1:
-                                //tallas = {1000, 2000, 3000, 4000, 5000};
-                                NExperimentos = 10;
+                                System.out.println("Talla \t Exhaustivo \t ConPoda \t Exhaustivo(ms) \t ConPoda(ms)");
 
-                                System.out.println("Talla \t Exhaustivo \t ConPoda \t Exhaustivo \t ConPoda");
+                                for(int talla : tallas2){
+                                    double sumExhaustivoTiempo = 0;
+                                    double sumConPodaTiempo = 0;
+                                    double sumExhaustivoDist = 0;
+                                    double sumConPodaDist = 0;
 
-                                /*for(int talla : tallas){
-                                    double sumExhaustivo = 0;
-                                    double sumConPoda = 0;
-                                    double sumDivide = 0;
-                                    double sumDivideOpt = 0;
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
+                                        sumExhaustivoTiempo += ex1.ejecutarConMedicion();
+                                        sumExhaustivoDist += ex1.mejor_distancia();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        ConPoda cp1 = new ConPoda(DCargadoCopia);
+                                        sumConPodaTiempo += cp1.ejecutarConMedicion();
+                                        sumConPodaDist += cp1.mejor_distancia();
+                                    
+                                        }
+
+                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumExhaustivoDist / NExperimentos,
+                                            sumConPodaDist / NExperimentos,
+                                            sumExhaustivoTiempo / NExperimentos,
+                                            sumConPodaTiempo / NExperimentos
+                                        );
+                                }
+                                
+                                break;
+                            case 2:
+                                System.out.println("Talla \t Exhaustivo \t DivideYVenceras \t Exhaustivo(ms) \t DivideYVenceras(ms)");
+
+                                for(int talla : tallas2){
+                                    double sumExhaustivoTiempo = 0;
+                                    double sumDivideYVencerasTiempo = 0;
+                                    double sumExhaustivoDist = 0;
+                                    double sumDivideYVencerasDist = 0;
+
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
+                                        sumExhaustivoTiempo += ex1.ejecutarConMedicion();
+                                        sumExhaustivoDist += ex1.mejor_distancia();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVenceras DV = new DivideYVenceras(DCargadoCopia);
+                                        sumDivideYVencerasTiempo += DV.ejecutarConMedicion();
+                                        sumDivideYVencerasDist += DV.mejor_distancia();
+                                    
+                                        }
+
+                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumExhaustivoDist / NExperimentos,
+                                            sumDivideYVencerasDist / NExperimentos,
+                                            sumExhaustivoTiempo / NExperimentos,
+                                            sumDivideYVencerasTiempo / NExperimentos
+                                        );
+                                    }
+                                
+                                break;
+                            case 3:
+                                System.out.println("Talla \t Exhaustivo \t DivideYVencerasOpt \t Exhaustivo(ms) \t DivideYVencerasOpt(ms)");
+
+                                for(int talla : tallas2){
+                                    double sumExhaustivoTiempo = 0;
+                                    double sumDivideYVencerasOptTiempo = 0;
+                                    double sumExhaustivoDist = 0;
+                                    double sumDivideYVencerasOptDist = 0;
+
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
+                                        sumExhaustivoTiempo += ex1.ejecutarConMedicion();
+                                        sumExhaustivoDist += ex1.mejor_distancia();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVencerasOpt DVO = new DivideYVencerasOpt(DCargadoCopia);
+                                        sumDivideYVencerasOptTiempo += DVO.ejecutarConMedicion();
+                                        sumDivideYVencerasOptDist += DVO.mejor_distancia();
+                                    
+                                        }
+
+                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumExhaustivoDist / NExperimentos,
+                                            sumDivideYVencerasOptDist / NExperimentos,
+                                            sumExhaustivoTiempo / NExperimentos,
+                                            sumDivideYVencerasOptTiempo / NExperimentos
+                                        );
+                                    }
+                                
+                                break;
+                            case 4:
+                                System.out.println("Talla \t ConPoda \t DivideYVenceras \t ConPoda(ms) \t DivideYVenceras(ms)");
+
+                                for(int talla : tallas2){
+                                    double sumDivideYVencerasTiempo = 0;
+                                    double sumConPodaTiempo = 0;
+                                    double sumDivideYVencerasDist = 0;
+                                    double sumConPodaDist = 0;
 
                                     for(int exp = 0; exp < NExperimentos; exp++){
                                         DCargado = Dataset.generarPuntosAleatorios(talla);
 
                                         DCargadoCopia = Dataset.copia(DCargado);
                                         Dataset.OrdenarDataset(DCargadoCopia);
-                                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
-                                        sumExhaustivo += ex1.ejecutarConMedicion();
+                                        DivideYVenceras DV = new DivideYVenceras(DCargadoCopia);
+                                        sumDivideYVencerasTiempo += DV.ejecutarConMedicion();
+                                        sumDivideYVencerasDist += DV.mejor_distancia();
                                     
                                         DCargadoCopia = Dataset.copia(DCargado);
                                         Dataset.OrdenarDataset(DCargadoCopia);
                                         ConPoda cp1 = new ConPoda(DCargadoCopia);
-                                        sumConPoda += cp1.ejecutarConMedicion();
+                                        sumConPodaTiempo += cp1.ejecutarConMedicion();
+                                        sumConPodaDist += cp1.mejor_distancia();
                                     
-                                        DCargadoCopia = Dataset.copia(DCargado);
-                                        Dataset.OrdenarDataset(DCargadoCopia);
-                                        DivideYVenceras DV1 = new DivideYVenceras(DCargadoCopia);
-                                        sumDivide += DV1.ejecutarConMedicion();
-                                            
-                                        DCargadoCopia = Dataset.copia(DCargado);
-                                        Dataset.OrdenarDataset(DCargadoCopia);
-                                        DivideYVencerasOpt DVO1 = new DivideYVencerasOpt(DCargadoCopia);
-                                        sumDivideOpt += DVO1.ejecutarConMedicion();
                                         }
 
-                                    System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n", talla, sumExhaustivo / NExperimentos, sumConPoda / NExperimentos, sumDivide / NExperimentos, sumDivideOpt / NExperimentos);
-                                }*/
-                                
-                                break;
-                            case 2:
-                                
-                                break;
-                            case 3:
-                                
-                                break;
-                            case 4:
+                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumConPodaDist / NExperimentos,
+                                            sumDivideYVencerasDist / NExperimentos,
+                                            sumConPodaTiempo / NExperimentos,
+                                            sumDivideYVencerasTiempo / NExperimentos
+                                        );
+                                    }
                                 
                                 break;
                             case 5:
+                                System.out.println("Talla \t ConPoda \t DivideYVencerasOpt \t ConPoda(ms) \t DivideYVencerasOpt(ms)");
+
+                                for(int talla : tallas2){
+                                    double sumDivideYVencerasOptTiempo = 0;
+                                    double sumConPodaTiempo = 0;
+                                    double sumDivideYVencerasOptDist = 0;
+                                    double sumConPodaDist = 0;
+
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVencerasOpt DVO = new DivideYVencerasOpt(DCargadoCopia);
+                                        sumDivideYVencerasOptTiempo += DVO.ejecutarConMedicion();
+                                        sumDivideYVencerasOptDist += DVO.mejor_distancia();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        ConPoda cp1 = new ConPoda(DCargadoCopia);
+                                        sumConPodaTiempo += cp1.ejecutarConMedicion();
+                                        sumConPodaDist += cp1.mejor_distancia();
+                                    
+                                        }
+
+                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumConPodaDist / NExperimentos,
+                                            sumDivideYVencerasOptDist / NExperimentos,
+                                            sumConPodaTiempo / NExperimentos,
+                                            sumDivideYVencerasOptTiempo / NExperimentos
+                                        );
+                                    }
+
                                 
                                 break;
                             case 6:
+                                System.out.println("Talla \t DivideYVenceras \t DivideYVencerasOpt \t DivideYVenceras(ms) \t DivideYVencerasOpt(ms)");
+
+                                for(int talla : tallas2){
+                                    double sumDivideYVencerasOptTiempo = 0;
+                                    double sumDivideYVencerasTiempo = 0;
+                                    double sumDivideYVencerasOptDist = 0;
+                                    double sumDivideYVencerasDist = 0;
+
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVenceras DV = new DivideYVenceras(DCargadoCopia);
+                                        sumDivideYVencerasTiempo += DV.ejecutarConMedicion();
+                                        sumDivideYVencerasDist += DV.mejor_distancia();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVencerasOpt DVO = new DivideYVencerasOpt(DCargadoCopia);
+                                        sumDivideYVencerasOptTiempo += DVO.ejecutarConMedicion();
+                                        sumDivideYVencerasOptDist += DVO.mejor_distancia();
+                                    
+                                        }
+
+                                        System.out.printf("%d\t\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                            talla,
+                                            sumDivideYVencerasDist / NExperimentos,
+                                            sumDivideYVencerasOptDist / NExperimentos,
+                                            sumDivideYVencerasTiempo / NExperimentos,
+                                            sumDivideYVencerasOptTiempo / NExperimentos
+                                        );
+                                    }
                                 
                                 break;
                             case 0:
@@ -265,7 +422,6 @@ public class Main {
 
                     } while (pareja != 0);
                     
-
                     break;
                 case 6:
                     List<Punto> datasetP = new ArrayList<>();

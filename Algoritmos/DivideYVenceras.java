@@ -66,19 +66,6 @@ public class DivideYVenceras extends Algoritmo {
                 franja.add(p);
             }
         }
-
-        // Comparar sólo puntos de la franja hasta 7 siguientes en orden Y
-        /*for (int i = 0; i < franja.size(); i++) {
-            for (int j = i + 1; j < franja.size() && (franja.get(j).getY() - franja.get(i).getY()) < dmin; j++) {
-                double dist = DE.calcula(franja.get(i), franja.get(j));
-                if (dist < dmin) {
-                    dmin = dist;
-                    resultadoMenor = Arrays.asList(franja.get(i), franja.get(j));
-                }
-            }
-        }
-        this.MejorDis = dmin;
-        */
         buscarParExhaustivo(franja);
         return resultadoMenor;
     }

@@ -141,14 +141,14 @@ public class Main {
                                 System.out.println(algoritmo.distanciacalculada());
                                 break;
                             case 4:
-                               /* DCargadoCopia = Dataset.copia(DCargado);
+                                DCargadoCopia = Dataset.copia(DCargado);
                                 Dataset.OrdenarDataset(DCargadoCopia);
                                 System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
                                 algoritmo = new DivideYVencerasOpt(DCargadoCopia);
                                 algoritmo.run();
                                 System.out.println(algoritmo.MejorDis);
                                 System.out.println(algoritmo.ParMejor);
-                                System.out.println(algoritmo.distanciacalculada());*/
+                                System.out.println(algoritmo.distanciacalculada());
                                 break;
                             case 0:
                                 System.out.println("\nVuelve pronto!");
@@ -182,6 +182,15 @@ public class Main {
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Divide y Vencerás ===");
                         algoritmo = new DivideYVenceras(DCargadoCopia);
+                        algoritmo.run();
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+                        algoritmo = new DivideYVencerasOpt(DCargadoCopia);
                         algoritmo.run();
                         System.out.println(algoritmo.MejorDis);
                         System.out.println(algoritmo.ParMejor);

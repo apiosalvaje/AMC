@@ -73,8 +73,6 @@ public class DivideYVencerasOpt extends Algoritmo {
     }
 
     private List<Punto> buscarParConPoda(List<Punto> puntos) {
-    // La lista puntos debe estar ordenada por Y al llamar a este método
-    ConPoda conpoda = new ConPoda(puntos);
     
     double distanciaMin = Double.POSITIVE_INFINITY;
     List<Punto> parMejorLocal = new ArrayList<>();
@@ -90,7 +88,7 @@ public class DivideYVencerasOpt extends Algoritmo {
                 break; // poda temprana si hace falta
             }
 
-            double d = conpoda.DE.calcula(p1, p2);
+            double d = this.DE.calcula(p1, p2);
             if (d < distanciaMin) {
                 distanciaMin = d;
                 parMejorLocal.clear();
@@ -105,9 +103,6 @@ public class DivideYVencerasOpt extends Algoritmo {
         this.ParMejor.addAll(parMejorLocal);
         this.MejorDis = distanciaMin;
     }
-    
-    this.DE.calculo += conpoda.distanciacalculada();
-
     return this.ParMejor;
 }
 

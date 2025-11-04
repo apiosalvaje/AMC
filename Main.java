@@ -222,7 +222,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumExhaustivoDist / NExperimentos,
                                             sumConPodaDist / NExperimentos,

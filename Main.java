@@ -1,17 +1,23 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 import Algoritmos.*;
 import Datos.*;
 
 public class Main {
-    public void main(String[] args){
+    public static void main(String[] args){
         int opcion;
         Scanner sc = new Scanner(System.in);
+        String NDataset;
+        List<Punto> DCargado = new ArrayList<>();
+        List<Punto> DCargadoCopia = new ArrayList<>(DCargado);
 
-        List<Punto> puntos = Dataset.generarPuntosAleatorios(); //Llamamos a la función 'generarPuntosAleatorios' para crear una lista de 10 puntos aleatorios
+        /*List<Punto> puntos = Dataset.generarPuntosAleatorios(); //Llamamos a la función 'generarPuntosAleatorios' para crear una lista de 10 puntos aleatorios
         for (Punto p : puntos){ //Este bucle recorre cada punto de la lista y lo muestra en consola
             System.out.println(p);
-        }
+        }*/
 
         do {
             System.out.println("\n=== Menú Práctica 1 ===");
@@ -45,25 +51,39 @@ public class Main {
                     System.out.println("\nElige el dataset que quieres cargar: ");
                     int data = sc.nextInt();
 
+                    try{
                     switch (data) {
                         case 1:
-                            
+                            DCargado = Dataset.leerFicheros("berlin52.tsp");
+                            NDataset = "berlin52.tsp";
                             break;
                         case 2:
-
+                            DCargado = Dataset.leerFicheros("ch130.tsp");
+                            NDataset = "ch130.tsp";
                             break;
                         case 3:
-
+                            DCargado = Dataset.leerFicheros("ch150.tsp");
+                            NDataset = "ch150.tsp";
                             break;
                         case 4:
-
+                            DCargado = Dataset.leerFicheros("d493.tsp");
+                            NDataset = "d493.tsp";
                             break;
                         case 5:
-
+                            DCargado = Dataset.leerFicheros("d657.tsp");
+                            NDataset = "d657.tsp";
                             break;
                         case 6:
-                            
-                            break;
+                            System.out.println("\nDime el dataset que quieres cargar: ");
+                            NDataset = sc.next();
+                            System.out.println("\nCargando el dataset " + NDataset);
+                            if (Files.exists(Path.of(NDataset))) {
+                                DCargado = Dataset.leerFicheros(NDataset);
+                                break;
+                            } else{
+                                System.out.println("Dataset equivocado");
+                                break;
+                            }
                         case 0:
                             System.out.println("\nVuelve pronto");
                             break;
@@ -71,6 +91,9 @@ public class Main {
                         default:
                             System.out.println("\nNúmero equivocado");
                             break;
+                    }
+                    }catch (IOException e){
+                        System.err.println("Error al leer el fichero: " + e.getMessage());
                     }
                     break;
                 case 3:
@@ -84,26 +107,48 @@ public class Main {
                         System.out.println("\nElige una estrategia");
                         estrategia = sc.nextInt();
 
+                        Algoritmo algoritmo;
+
                         switch (estrategia) {
                             case 1:
+                                DCargadoCopia = Dataset.copia(DCargado);
+                                Dataset.OrdenarDataset(DCargadoCopia);
                                 System.out.println("\n=== Método Exhaustivo ===");
-                                Exhaustivo;
-
+                                algoritmo = new Exhaustivo(DCargadoCopia);
+                                algoritmo.run();
+                                System.out.println(algoritmo.MejorDis);
+                                System.out.println(algoritmo.ParMejor);
+                                System.out.println(algoritmo.distanciacalculada());
                                 break;
                             case 2:
+                                DCargadoCopia = Dataset.copia(DCargado);
+                                Dataset.OrdenarDataset(DCargadoCopia);
                                 System.out.println("\n=== Método con Poda ===");
-                                ConPoda.encontrarParMasCercanoConPoda(puntos);
-                                
+                                algoritmo = new ConPoda(DCargadoCopia);
+                                algoritmo.run();
+                                System.out.println(algoritmo.MejorDis);
+                                System.out.println(algoritmo.ParMejor);
+                                System.out.println(algoritmo.distanciacalculada());
                                 break;
                             case 3:
+                                DCargadoCopia = Dataset.copia(DCargado);
+                                Dataset.OrdenarDataset(DCargadoCopia);
                                 System.out.println("\n=== Método Divide y Vencerás ===");
-                                Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
-                                
+                                algoritmo = new DivideYVenceras(DCargadoCopia);
+                                algoritmo.run();
+                                System.out.println(algoritmo.MejorDis);
+                                System.out.println(algoritmo.ParMejor);
+                                System.out.println(algoritmo.distanciacalculada());
                                 break;
                             case 4:
+                               /* DCargadoCopia = Dataset.copia(DCargado);
+                                Dataset.OrdenarDataset(DCargadoCopia);
                                 System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
-                                Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
-                                
+                                algoritmo = new DivideYVencerasOpt(DCargadoCopia);
+                                algoritmo.run();
+                                System.out.println(algoritmo.MejorDis);
+                                System.out.println(algoritmo.ParMejor);
+                                System.out.println(algoritmo.distanciacalculada());*/
                                 break;
                             case 0:
                                 System.out.println("\nVuelve pronto!");
@@ -115,14 +160,32 @@ public class Main {
                         }
                     break;
                 case 4:
-                    System.out.println("\n=== Método Exhaustivo ===");
-                    Exhaustivo.buscarParMasCercano(puntos, false); 
-                    System.out.println("\n=== Método con Poda ===");
-                    ConPoda.encontrarParMasCercanoConPoda(puntos);
-                    System.out.println("\n=== Método Divide y Vencerás ===");
-                    Algoritmo.encontrarParMasCercanoDivideYVenceras(puntos);
-                    System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
-                    Algoritmo.encontrarParMasCercanoDivideYVencerasOpt(puntos.toArray(new Punto[0]));
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Exhaustivo ===");
+                        algoritmo = new Exhaustivo(DCargadoCopia);
+                        algoritmo.run();
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método con Poda ===");
+                        algoritmo = new ConPoda(DCargadoCopia);
+                        algoritmo.run();
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Divide y Vencerás ===");
+                        algoritmo = new DivideYVenceras(DCargadoCopia);
+                        algoritmo.run();
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
 
                     break;
                 case 5:
@@ -172,7 +235,10 @@ public class Main {
 
                     break;
                 case 6:
-
+                    List<Punto> datasetP = new ArrayList<>();
+                    datasetP = Dataset.generarPuntosAleatoriosCasoPeor();
+                    String nombreP = "CasoPeor";
+                    Dataset.GuardarDataset(nombreP, datasetP);
                     break;
                 case 0:
                     System.out.println("\nGracias por la visita");

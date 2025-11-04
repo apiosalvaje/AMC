@@ -19,6 +19,7 @@ public class ConPoda extends Algoritmo{
                     double d = this.DE.calcula(this.dataset.get(i), this.dataset.get(j));
                     if (d < distanciaMin) {
                         distanciaMin = d;
+                        ParMejor.clear();
                         ParMejor.add(this.dataset.get(i));
                         ParMejor.add(this.dataset.get(j));
                 }

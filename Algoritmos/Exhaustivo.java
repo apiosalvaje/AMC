@@ -18,6 +18,7 @@ public class Exhaustivo extends Algoritmo{
 
                 if (d < distanciaMin) {
                     distanciaMin = d;
+                    ParMejor.clear();
                     ParMejor.add(this.dataset.get(i));
                     ParMejor.add(this.dataset.get(j));
                 }

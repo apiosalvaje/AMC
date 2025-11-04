@@ -1,5 +1,7 @@
 package Datos;
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 import Algoritmos.Quicksort;
@@ -14,6 +16,10 @@ public class Dataset {
         for (int i = 0; i < cantidad; i++) { //Utilizamos este bucle para crear la cantidad de puntos solicitada
             double x = rnd.nextDouble() * 100; //Para cada punto, generamos dos números aleatorios (x,y), ambos entre 0 y 100
             double y = rnd.nextDouble() * 100;
+
+            x = new BigDecimal(x).setScale(10, RoundingMode.HALF_UP).doubleValue();
+            y = new BigDecimal(y).setScale(10, RoundingMode.HALF_UP).doubleValue();
+
             lista.add(new Punto(x, y,i)); //Creamos el objeto 'Punto' con esas coordenadas y lo añadimos a la lista
         }
         return lista; //Devolvemos la lista

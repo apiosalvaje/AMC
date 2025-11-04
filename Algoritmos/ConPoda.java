@@ -28,4 +28,11 @@ public class ConPoda extends Algoritmo{
         }
         this.MejorDis = distanciaMin;
     }
+
+    public double ejecutarConMedicion() {
+        long inicio = System.nanoTime();
+        run();
+        long fin = System.nanoTime();
+        return (fin - inicio) / 1_000_000.0; // en milisegundos con decimales
+    }
 }

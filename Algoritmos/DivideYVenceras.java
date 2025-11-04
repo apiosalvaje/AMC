@@ -89,4 +89,11 @@ public class DivideYVenceras extends Algoritmo {
         return exhaustivo.ParMejor;
     }
 
+    public double ejecutarConMedicion() {
+        long inicio = System.nanoTime();
+        run();
+        long fin = System.nanoTime();
+        return (fin - inicio) / 1_000_000.0; // en milisegundos con decimales
+    }
+
 }

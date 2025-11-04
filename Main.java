@@ -97,67 +97,57 @@ public class Main {
                     }
                     break;
                 case 3:
-                    int estrategia;
-                        System.out.println("\n=== Comparaciones de Estrategias ===");
-                        System.out.println("\n1. Exhaustivo");
-                        System.out.println("\n2. Con Poda");
-                        System.out.println("\n3. DivideYVenceras");
-                        System.out.println("\n4. DivideYVencerasOpt");
-                        System.out.println("\n0. Volver");
-                        System.out.println("\nElige una estrategia");
-                        estrategia = sc.nextInt();
-
                         Algoritmo algoritmo;
-
-                        switch (estrategia) {
-                            case 1:
-                                DCargadoCopia = Dataset.copia(DCargado);
-                                Dataset.OrdenarDataset(DCargadoCopia);
-                                System.out.println("\n=== Método Exhaustivo ===");
-                                algoritmo = new Exhaustivo(DCargadoCopia);
-                                algoritmo.run();
-                                System.out.println(algoritmo.MejorDis);
-                                System.out.println(algoritmo.ParMejor);
-                                System.out.println(algoritmo.distanciacalculada());
-                                break;
-                            case 2:
-                                DCargadoCopia = Dataset.copia(DCargado);
-                                Dataset.OrdenarDataset(DCargadoCopia);
-                                System.out.println("\n=== Método con Poda ===");
-                                algoritmo = new ConPoda(DCargadoCopia);
-                                algoritmo.run();
-                                System.out.println(algoritmo.MejorDis);
-                                System.out.println(algoritmo.ParMejor);
-                                System.out.println(algoritmo.distanciacalculada());
-                                break;
-                            case 3:
-                                DCargadoCopia = Dataset.copia(DCargado);
-                                Dataset.OrdenarDataset(DCargadoCopia);
-                                System.out.println("\n=== Método Divide y Vencerás ===");
-                                algoritmo = new DivideYVenceras(DCargadoCopia);
-                                algoritmo.run();
-                                System.out.println(algoritmo.MejorDis);
-                                System.out.println(algoritmo.ParMejor);
-                                System.out.println(algoritmo.distanciacalculada());
-                                break;
-                            case 4:
-                                DCargadoCopia = Dataset.copia(DCargado);
-                                Dataset.OrdenarDataset(DCargadoCopia);
-                                System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
-                                algoritmo = new DivideYVencerasOpt(DCargadoCopia);
-                                algoritmo.run();
-                                System.out.println(algoritmo.MejorDis);
-                                System.out.println(algoritmo.ParMejor);
-                                System.out.println(algoritmo.distanciacalculada());
-                                break;
-                            case 0:
-                                System.out.println("\nVuelve pronto!");
-                                break;
+                        double tiempo;
+   
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Exhaustivo ===");
+                        algoritmo = new Exhaustivo(DCargadoCopia);
+                        algoritmo.run();
+                        Exhaustivo ex = new Exhaustivo(DCargadoCopia);
+                        tiempo = ex.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
                         
-                            default:
-                                System.out.println("\nNúmero equivocado");
-                                break;
-                        }
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método con Poda ===");
+                        algoritmo = new ConPoda(DCargadoCopia);
+                        algoritmo.run();
+                        ConPoda cp = new ConPoda(DCargadoCopia);
+                        tiempo = cp.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+                        
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Divide y Vencerás ===");
+                        algoritmo = new DivideYVenceras(DCargadoCopia);
+                        algoritmo.run();
+                        DivideYVenceras DV = new DivideYVenceras(DCargadoCopia);
+                        tiempo = DV.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+                                
+                        DCargadoCopia = Dataset.copia(DCargado);
+                        Dataset.OrdenarDataset(DCargadoCopia);
+                        System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+                        algoritmo = new DivideYVencerasOpt(DCargadoCopia);
+                        algoritmo.run();
+                        DivideYVencerasOpt DVO = new DivideYVencerasOpt(DCargadoCopia);
+                        tiempo = DVO.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                        System.out.println(algoritmo.MejorDis);
+                        System.out.println(algoritmo.ParMejor);
+                        System.out.println(algoritmo.distanciacalculada());
+                        
                     break;
                 case 4:
                         DCargadoCopia = Dataset.copia(DCargado);
@@ -165,33 +155,45 @@ public class Main {
                         System.out.println("\n=== Método Exhaustivo ===");
                         algoritmo = new Exhaustivo(DCargadoCopia);
                         algoritmo.run();
+                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
+                        tiempo = ex1.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println(algoritmo.MejorDis);
                         System.out.println(algoritmo.ParMejor);
                         System.out.println(algoritmo.distanciacalculada());
-
+                        
                         DCargadoCopia = Dataset.copia(DCargado);
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método con Poda ===");
                         algoritmo = new ConPoda(DCargadoCopia);
                         algoritmo.run();
+                        ConPoda cp1 = new ConPoda(DCargadoCopia);
+                        tiempo = cp1.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println(algoritmo.MejorDis);
                         System.out.println(algoritmo.ParMejor);
                         System.out.println(algoritmo.distanciacalculada());
-
+                        
                         DCargadoCopia = Dataset.copia(DCargado);
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Divide y Vencerás ===");
                         algoritmo = new DivideYVenceras(DCargadoCopia);
                         algoritmo.run();
+                        DivideYVenceras DV1 = new DivideYVenceras(DCargadoCopia);
+                        tiempo = DV1.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println(algoritmo.MejorDis);
                         System.out.println(algoritmo.ParMejor);
                         System.out.println(algoritmo.distanciacalculada());
-
+                                
                         DCargadoCopia = Dataset.copia(DCargado);
                         Dataset.OrdenarDataset(DCargadoCopia);
                         System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
                         algoritmo = new DivideYVencerasOpt(DCargadoCopia);
                         algoritmo.run();
+                        DivideYVencerasOpt DVO1 = new DivideYVencerasOpt(DCargadoCopia);
+                        tiempo = DVO1.ejecutarConMedicion();
+                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
                         System.out.println(algoritmo.MejorDis);
                         System.out.println(algoritmo.ParMejor);
                         System.out.println(algoritmo.distanciacalculada());

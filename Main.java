@@ -200,6 +200,43 @@ public class Main {
 
                         switch (pareja) {
                             case 1:
+                                //tallas = {1000, 2000, 3000, 4000, 5000};
+                                NExperimentos = 10;
+
+                                System.out.println("Talla \t Exhaustivo \t ConPoda \t Exhaustivo \t ConPoda");
+
+                                /*for(int talla : tallas){
+                                    double sumExhaustivo = 0;
+                                    double sumConPoda = 0;
+                                    double sumDivide = 0;
+                                    double sumDivideOpt = 0;
+
+                                    for(int exp = 0; exp < NExperimentos; exp++){
+                                        DCargado = Dataset.generarPuntosAleatorios(talla);
+
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
+                                        sumExhaustivo += ex1.ejecutarConMedicion();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        ConPoda cp1 = new ConPoda(DCargadoCopia);
+                                        sumConPoda += cp1.ejecutarConMedicion();
+                                    
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVenceras DV1 = new DivideYVenceras(DCargadoCopia);
+                                        sumDivide += DV1.ejecutarConMedicion();
+                                            
+                                        DCargadoCopia = Dataset.copia(DCargado);
+                                        Dataset.OrdenarDataset(DCargadoCopia);
+                                        DivideYVencerasOpt DVO1 = new DivideYVencerasOpt(DCargadoCopia);
+                                        sumDivideOpt += DVO1.ejecutarConMedicion();
+                                        }
+
+                                    System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n", talla, sumExhaustivo / NExperimentos, sumConPoda / NExperimentos, sumDivide / NExperimentos, sumDivideOpt / NExperimentos);
+                                }*/
                                 
                                 break;
                             case 2:

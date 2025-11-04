@@ -41,15 +41,6 @@ public class DivideYVenceras extends Algoritmo {
         List<Punto> izquierdaY = new ArrayList<>();
         List<Punto> derechaY = new ArrayList<>();
 
-        // Dividir ptsY en izquierdaY y derechaY basados en X
-        for (Punto p : puntosOrdenadosY) {
-            if (p.getX() <= puntoCorte.getX()) {
-                izquierdaY.add(p);
-            } else {
-                derechaY.add(p);
-            }
-        }
-
         List<Punto> resIzquierda = buscarParMasCercanoDivideYVenceras(izquierdaX, izquierdaY);
         List<Punto> resDerecha = buscarParMasCercanoDivideYVenceras(derechaX, derechaY);
 

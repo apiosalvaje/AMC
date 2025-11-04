@@ -74,7 +74,7 @@ public class DivideYVencerasOpt extends Algoritmo {
 
     private List<Punto> buscarParConPoda(List<Punto> puntos) {
         ConPoda conpoda = new ConPoda(puntos);
-        conpoda.run();  // Ejecuta el algoritmo exhaustivo en este subconjunto
+        conpoda.run();  
     
         // También puedes guardar la distancia si quieres usarla después
         if (conpoda.mejor_distancia() < this.MejorDis) {

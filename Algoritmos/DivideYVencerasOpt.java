@@ -25,7 +25,7 @@ public class DivideYVencerasOpt extends Algoritmo {
 
     private List<Punto> buscarParMasCercanoOpt(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
         int n = puntosOrdenadosX.size();
-        if (n <= 2) {
+        if (n <= 10) {
             // Caso base: usar búsqueda Con Poda
             return buscarParConPoda(puntosOrdenadosX);
         }

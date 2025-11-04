@@ -27,7 +27,7 @@ public class DivideYVenceras extends Algoritmo {
 
     private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
         int n = puntosOrdenadosX.size();
-        if (n <= 2) {
+        if (n <= 10) {
             // Caso base: usar búsqueda exhaustiva
             return buscarParExhaustivo(puntosOrdenadosX);
         }

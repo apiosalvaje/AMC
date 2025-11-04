@@ -7,10 +7,8 @@ import java.util.*;
 import Algoritmos.Quicksort;
 
 public class Dataset {
-    public static int cantidad = 100;
 
-    public static List<Punto> generarPuntosAleatorios(){ //Este método:
-        int cantidad = 100;
+    public static List<Punto> generarPuntosAleatorios(int cantidad){ //Este método:
         List<Punto> lista = new ArrayList<>(); //Crea una lista vacía de puntos
         Random rnd = new Random();
         for (int i = 0; i < cantidad; i++) { //Utilizamos este bucle para crear la cantidad de puntos solicitada
@@ -25,7 +23,7 @@ public class Dataset {
         return lista; //Devolvemos la lista
     }
 
-    public static List<Punto> generarPuntosAleatoriosCasoPeor(){ 
+    public static List<Punto> generarPuntosAleatoriosCasoPeor(int cantidad){ 
         List<Punto> lista = new ArrayList<>(); 
         Random rnd = new Random();
         double x = rnd.nextDouble() * 100; 

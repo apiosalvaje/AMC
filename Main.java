@@ -150,6 +150,7 @@ public class Main {
                 case 4: 
                     //Comparamos los tiempos promedios de todas las estrategias en base a diversos tamaños de dataset
                     int[] tallas = {1000, 2000, 3000, 4000, 5000}; //Las tallas se pueden modificar pero con cuidado que peta el pc
+                    //Máximo en tallas: 7500, 8000, 8500, 9000, 9500 (en mi pc)
                     int NExperimentos = 10;
 
                     System.out.println("Talla \t Exhaustivo \t ConPoda \t DivideYVenceras \t DivideYVencerasOpt");
@@ -185,7 +186,7 @@ public class Main {
                             }
 
                             //Mostramos los tiempos promedio para cada talla
-                            System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n", 
+                            System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n", 
                                 talla, 
                                 sumExhaustivo / NExperimentos, 
                                 sumConPoda / NExperimentos, 

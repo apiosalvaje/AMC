@@ -27,9 +27,9 @@ public class DivideYVenceras extends Algoritmo {
 
     private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
         int n = puntosOrdenadosX.size();
-        if (n <= 10) {
+        if (n <= 20) {
             // Caso base: usamos búsqueda exhaustiva
-            return buscarParExhaustivo(puntosOrdenadosX);
+            return buscarParConPoda(puntosOrdenadosX);
         }
 
         int mitad = n / 2;
@@ -57,7 +57,7 @@ public class DivideYVenceras extends Algoritmo {
                 franja.add(p);
             }
         }
-        buscarParExhaustivo(franja); //Buscamos en la franja
+        buscarParConPoda(franja); //Buscamos en la franja
         return resultadoMenor;
     }
     private double calcularDistancia(List<Punto> par) {
@@ -65,19 +65,36 @@ public class DivideYVenceras extends Algoritmo {
         return DE.calcula(par.get(0), par.get(1));
     }
 
-    private List<Punto> buscarParExhaustivo(List<Punto> puntos) {
-        Exhaustivo exhaustivo = new Exhaustivo(puntos);
-        exhaustivo.run();  // Ejecuta el algoritmo exhaustivo en este subconjunto
-    
-        // También puedes guardar la distancia si quieres usarla después
-        if (exhaustivo.mejor_distancia() < this.MejorDis) {
-            this.ParMejor.clear();
-            this.ParMejor.addAll(exhaustivo.ParMejor);
-            this.MejorDis = exhaustivo.MejorDis;
-        }
-        this.DE.calculo += exhaustivo.distanciacalculada();
+    private List<Punto> buscarParConPoda(List<Punto> puntos) {
+        double distanciaMin = Double.POSITIVE_INFINITY;
+        List<Punto> parMejorLocal = new ArrayList<>();
 
-        return exhaustivo.ParMejor;
+        for (int i = 0; i < puntos.size(); i++) {
+            Punto p1 = puntos.get(i);
+
+            for (int j = i + 1; j < puntos.size(); j++) {
+                double dx = Math.abs(p1.getX() - puntos.get(j).getX());
+                if (dx >= distanciaMin) {
+                    break; // Poda temprana
+                }
+
+                double d = DE.calcula(p1, puntos.get(j));
+                if (d < distanciaMin) {
+                    distanciaMin = d;
+                    parMejorLocal.clear();
+                    parMejorLocal.add(p1);
+                    parMejorLocal.add(puntos.get(j));
+                }
+            }
+        }
+
+        if (distanciaMin < this.MejorDis) {
+            this.ParMejor.clear();
+            this.ParMejor.addAll(parMejorLocal);
+            this.MejorDis = distanciaMin;
+        }
+
+        return parMejorLocal;
     }
 
 }

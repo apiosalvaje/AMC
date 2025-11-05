@@ -18,16 +18,16 @@ public class DivideYVencerasOpt extends Algoritmo {
         Quicksort.Ordena(puntosOrdenadosX);
         Quicksort.OrdenaY(puntosOrdenadosY);
 
-        List<Punto> resultado = buscarParMasCercanoOpt(puntosOrdenadosX, puntosOrdenadosY);
+        List<Punto> resultado = buscarParMasCercanoOpt(puntosOrdenadosX, puntosOrdenadosY, Double.POSITIVE_INFINITY);
         if (resultado != null &&  resultado.size() == 2){
         }
     }
 
-    private List<Punto> buscarParMasCercanoOpt(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
+    private List<Punto> buscarParMasCercanoOpt(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY, double distanciaMinima) {
         int n = puntosOrdenadosX.size();
         if (n <= 10) {
             // Caso base: usar búsqueda Con Poda
-            return buscarParConPoda(puntosOrdenadosX);
+            return buscarParConPoda(puntosOrdenadosX, distanciaMinima);
         }
 
         int mitad = n / 2;
@@ -48,10 +48,12 @@ public class DivideYVencerasOpt extends Algoritmo {
             }
         }
 
-        List<Punto> resIzquierda = buscarParMasCercanoOpt(izquierdaX, izquierdaY);
-        List<Punto> resDerecha = buscarParMasCercanoOpt(derechaX, derechaY);
-
+        List<Punto> resIzquierda = buscarParMasCercanoOpt(izquierdaX, izquierdaY, distanciaMinima);
         double distIzq = calcularDistancia(resIzquierda);
+
+        double nuevaDistMin =Math.min(distIzq, distanciaMinima);
+        
+        List<Punto> resDerecha = buscarParMasCercanoOpt(derechaX, derechaY, nuevaDistMin);
         double distDer = calcularDistancia(resDerecha);
 
         List<Punto> resultadoMenor = (distIzq < distDer) ? resIzquierda : resDerecha;
@@ -64,7 +66,12 @@ public class DivideYVencerasOpt extends Algoritmo {
                 franja.add(p);
             }
         }
-        buscarParConPoda(franja);
+        List<Punto> resultadoFranja = buscarParConPoda(franja, dmin);
+        double distFranja = calcularDistancia(resultadoFranja);
+
+        if (distFranja < dmin) {
+            return resultadoFranja;
+        }
         return resultadoMenor;
     }
     private double calcularDistancia(List<Punto> par) {
@@ -72,9 +79,9 @@ public class DivideYVencerasOpt extends Algoritmo {
         return DE.calcula(par.get(0), par.get(1));
     }
 
-    private List<Punto> buscarParConPoda(List<Punto> puntos) {
+    private List<Punto> buscarParConPoda(List<Punto> puntos, double distanciaMinima) {
     
-    double distanciaMin = Double.POSITIVE_INFINITY;
+    double distanciaMin = distanciaMinima;
     List<Punto> parMejorLocal = new ArrayList<>();
 
     for (int i = 0; i < puntos.size(); i++) {
@@ -103,6 +110,6 @@ public class DivideYVencerasOpt extends Algoritmo {
         this.ParMejor.addAll(parMejorLocal);
         this.MejorDis = distanciaMin;
     }
-    return this.ParMejor;
+    return parMejorLocal;
     }
 }

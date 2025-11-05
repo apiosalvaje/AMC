@@ -12,6 +12,7 @@ public class Exhaustivo extends Algoritmo{
     public void run() {
         double distanciaMin = mejor_distancia();
 
+        
         for (int i = 0; i < dataset.size() - 1; i++){
             for (int j = i + 1; j < dataset.size(); j++){
                 double d = this.DE.calcula(this.dataset.get(i), this.dataset.get(j));

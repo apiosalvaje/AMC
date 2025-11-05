@@ -417,7 +417,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
+                                        System.out.printf("%-8d \t%-15.4f \t%-5.4f \t%17.4f %23.4f%n",
                                             talla,
                                             sumDivideYVencerasDist / NExperimentos,
                                             sumDivideYVencerasOptDist / NExperimentos,
@@ -445,7 +445,7 @@ public class Main {
                     System.out.println("Cuantos datos generar");
                     N = sc.nextInt();
                     datasetP = Dataset.generarPuntosAleatoriosCasoPeor(N);
-                    Dataset.GuardarDataset("Caso Peor"+N, datasetP);
+                    Dataset.GuardarDataset("CasoPeor"+N, datasetP);
                     break;
                 case 0:
                     //Salir

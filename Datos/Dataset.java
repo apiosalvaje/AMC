@@ -8,17 +8,18 @@ import Algoritmos.Quicksort;
 
 public class Dataset {
 
-    public static List<Punto> generarPuntosAleatorios(int cantidad){ //Este método:
-        List<Punto> lista = new ArrayList<>(); //Crea una lista vacía de puntos
+    public static List<Punto> generarPuntosAleatorios(int cantidad){ 
+        List<Punto> lista = new ArrayList<>(); //Creamos una lista vacía de puntos
         Random rnd = new Random();
         for (int i = 0; i < cantidad; i++) { //Utilizamos este bucle para crear la cantidad de puntos solicitada
             double x = rnd.nextDouble() * 100; //Para cada punto, generamos dos números aleatorios (x,y), ambos entre 0 y 100
-            double y = rnd.nextDouble() * 100;
+            double y = rnd.nextDouble() * 100; //Para cada punto, generamos dos números aleatorios (x,y), ambos entre 0 y 100
 
+            //Ajustamos la precisión para que los puntos tengan 10 decimales
             x = new BigDecimal(x).setScale(10, RoundingMode.HALF_UP).doubleValue();
             y = new BigDecimal(y).setScale(10, RoundingMode.HALF_UP).doubleValue();
 
-            lista.add(new Punto(x, y,i)); //Creamos el objeto 'Punto' con esas coordenadas y lo añadimos a la lista
+            lista.add(new Punto(x, y,i)); //Añadimos punto con ID i a la lista
         }
         return lista; //Devolvemos la lista
     }
@@ -36,6 +37,8 @@ public class Dataset {
 
     public static void GuardarDataset(String nombreArchivo, List<Punto> lista){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo + ".tsp"))){
+
+            //Escribimos la cabecera del archivo
             bw.write("NAME: " + nombreArchivo);
             bw.newLine();
             bw.write("TYPE : TSP");
@@ -47,11 +50,12 @@ public class Dataset {
             bw.write("NODE_COORD_SECTION");
             bw.newLine();
 
+            //Escribimos cada punto con su ID y sus coordenadas
             for (Punto p : lista) {
                 bw.write(p.getID() + " " + p.getX() + " " + p.getY());
                 bw.newLine();
             }
-            bw.write("EOF");
+            bw.write("EOF"); //Marcamos el final del archivo
             bw.newLine();
 
             System.out.println("Archivo " + nombreArchivo + ".tsp guardado correctamente.");
@@ -61,16 +65,15 @@ public class Dataset {
     }
 
     public static List<Punto> leerFicheros(String nombreArchivo) throws IOException {
-        List<Punto> lecturaDataset = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))){
+        List<Punto> lecturaDataset = new ArrayList<>(); //Esta es la lista donde se cargarán los puntos
+        int dimension = - 1;
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))){ //Abrimos el archivo para la lectura
             String linea;
-            int dimension = - 1;
-            boolean leerDatos = false;
+            boolean leerDatos = false; //Indicamos si ya se pueden leer los puntos
 
-            while ((linea = br.readLine()) != null) {
-                linea = linea.trim();
-                if (linea.isEmpty()) continue;
+            while ((linea = br.readLine()) != null) { //Leemos línea a línea
+                linea = linea.trim(); //Eliminamos espacios en blanco al inicio y al final
+                if (linea.isEmpty()) continue; //Ignoramos las líneas vacías
                 
                 if (linea.startsWith("DIMENSION")) {
                     String[] partes = linea.split(":");
@@ -78,30 +81,35 @@ public class Dataset {
                         dimension = Integer.parseInt(partes[1].trim());
                     }
                 }
-                else if (linea.startsWith("NODE_COORD_SECTION")) {
-                    leerDatos = true;
+                else if (linea.startsWith("NODE_COORD_SECTION")) { //Marca el inicio de los datos
+                    leerDatos = true; //Empezamos a leer datos
                     continue;
                 }
 
                 if (leerDatos) {
-                    if (linea.equalsIgnoreCase("EOF")) break;
+                    if (linea.equalsIgnoreCase("EOF")) break; //Sería el final del archivo y de la lectura
                         
-                    String[] tokens = linea.split("\\s+");
+                    String[] tokens = linea.split("\\s+"); //Separamos valores
                     if (tokens.length >= 3) {
-                        int ID =  Integer.parseInt(tokens[0]);
-                        double x = Double.parseDouble(tokens[1]);
-                        double y = Double.parseDouble(tokens[2]);
+                        int ID =  Integer.parseInt(tokens[0]); //Esta es la ID del punto
+                        double x = Double.parseDouble(tokens[1]); //Esta es la coordenada x del punto
+                        double y = Double.parseDouble(tokens[2]); //Esta es la coordenada y del punto
 
-                        lecturaDataset.add(new Punto(x, y, ID));
+                        lecturaDataset.add(new Punto(x, y, ID)); //Creamos objeto y añadimos
                     }
                 }
 
                 }
-            }catch (IOException e){
+            }catch (IOException e){ //Aquí manejamos las excepciones por si falla alguna lectura
                 System.err.println("Error al leer el fichero: " + e.getMessage());
             }
+            //Verificamos que el número de puntos leídos, coincide con la dimensión esperada
+            if (dimension != -1 && lecturaDataset.size() != dimension) {
+                System.err.println("Cuidado: el número de puntos leídos (" + lecturaDataset.size() +
+                ") no está coincidiendo con la DIMENSION esperada (" + dimension + ")");
+            }
             
-        return lecturaDataset;
+        return lecturaDataset; //Devolvemos la lista con los puntos leídos
     }
 
     public static void OrdenarDataset(List<Punto> lista){

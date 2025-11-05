@@ -8,11 +8,11 @@ import Datos.*;
 
 public class Main {
     public static void main(String[] args){
-        int opcion;
-        Scanner sc = new Scanner(System.in);
-        String NDataset;
-        List<Punto> DCargado = new ArrayList<>();
-        List<Punto> DCargadoCopia = new ArrayList<>(DCargado);
+        int opcion; //Aquí tenemos la variable para el menú
+        Scanner sc = new Scanner(System.in); //Scanner para pedir cosas por teclado
+        String NDataset; //Este es el nombre del dataset seleccionado
+        List<Punto> DCargado = new ArrayList<>(); //Este será el dataset cargado en memoria
+        List<Punto> DCargadoCopia = new ArrayList<>(DCargado); //Esto es la copia del dataset cargado en memoria para evitar modificar el original
 
         do {
             System.out.println("\n=== Menú Práctica 1 ===");
@@ -28,6 +28,7 @@ public class Main {
 
             switch (opcion) {
                 case 1:
+                    //Generamos dataset aleatorios
                     List<Punto> dataset = new ArrayList<>();
                     System.out.println("Cuantos datos generar");
                     int N = sc.nextInt();
@@ -35,6 +36,7 @@ public class Main {
                     Dataset.GuardarDataset("dataset"+N, dataset);
                     break;
                 case 2:
+                    //Cargamos el dataset que queramos
                     System.out.println("\n=== Dataset ===");
                     System.out.println("\n1. berlin52.tsp");
                     System.out.println("\n2. ch130.tsp");
@@ -69,6 +71,7 @@ public class Main {
                             NDataset = "d657.tsp";
                             break;
                         case 6:
+                            //Cargamos un dataset "personalizado"
                             System.out.println("\nDime el dataset que quieres cargar: ");
                             NDataset = sc.next();
                             System.out.println("\nCargando el dataset " + NDataset);
@@ -92,56 +95,61 @@ public class Main {
                     }
                     break;
                 case 3:
-                        Algoritmo algoritmo;
-                        double tiempo;
-   
-                        DCargadoCopia = Dataset.copia(DCargado);
-                        System.out.println("\n=== Método Exhaustivo ===");
-                        algoritmo = new Exhaustivo(DCargadoCopia);
-                        tiempo = algoritmo.ejecutarConMedicion();
-                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
-                        System.out.println("Distancia: " + algoritmo.MejorDis);
-                        System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
-                        System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
-                        System.out.println("Calculadas: " + algoritmo.distanciacalculada());
-                        
-                        DCargadoCopia = Dataset.copia(DCargado);
-                        Dataset.OrdenarDataset(DCargadoCopia);
-                        System.out.println("\n=== Método con Poda ===");
-                        algoritmo = new ConPoda(DCargadoCopia);
-                        tiempo = algoritmo.ejecutarConMedicion();
-                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
-                        System.out.println("Distancia: " + algoritmo.MejorDis);
-                        System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
-                        System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
-                        System.out.println("Calculadas: " + algoritmo.distanciacalculada());
-                        
-                        DCargadoCopia = Dataset.copia(DCargado);
-                        Dataset.OrdenarDataset(DCargadoCopia);
-                        System.out.println("\n=== Método Divide y Vencerás ===");
-                        algoritmo = new DivideYVenceras(DCargadoCopia);
-                        tiempo = algoritmo.ejecutarConMedicion();
-                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
-                        System.out.println("Distancia: " + algoritmo.MejorDis);
-                        System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
-                        System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
-                        System.out.println("Calculadas: " + algoritmo.distanciacalculada());
-                                
-                        DCargadoCopia = Dataset.copia(DCargado);
-                        Dataset.OrdenarDataset(DCargadoCopia);
-                        System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
-                        algoritmo = new DivideYVencerasOpt(DCargadoCopia);
-                        tiempo = algoritmo.ejecutarConMedicion();
-                        System.out.printf("Tiempo: %.4f ms%n", tiempo);
-                        System.out.println("Distancia: " + algoritmo.MejorDis);
-                        System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
-                        System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
-                        System.out.println("Calculadas: " + algoritmo.distanciacalculada());
+                    //Ejecutamos y mostramos los resultados de todos los algoritmos
+                    Algoritmo algoritmo;
+                    double tiempo;
+
+                    //Ejecutamos el Exhaustivo
+                    DCargadoCopia = Dataset.copia(DCargado);
+                    System.out.println("\n=== Método Exhaustivo ===");
+                    algoritmo = new Exhaustivo(DCargadoCopia);
+                    tiempo = algoritmo.ejecutarConMedicion();
+                    System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                    System.out.println("Distancia: " + algoritmo.MejorDis);
+                    System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
+                    System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
+                    System.out.println("Calculadas: " + algoritmo.distanciacalculada());
+                    
+                    //Ejecutamos el ConPoda
+                    DCargadoCopia = Dataset.copia(DCargado);
+                    Dataset.OrdenarDataset(DCargadoCopia);
+                    System.out.println("\n=== Método con Poda ===");
+                    algoritmo = new ConPoda(DCargadoCopia);
+                    tiempo = algoritmo.ejecutarConMedicion();
+                    System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                    System.out.println("Distancia: " + algoritmo.MejorDis);
+                    System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
+                    System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
+                    System.out.println("Calculadas: " + algoritmo.distanciacalculada());
+                    
+                    //Ejecutamos el Divide y Vencerás
+                    DCargadoCopia = Dataset.copia(DCargado);
+                    Dataset.OrdenarDataset(DCargadoCopia);
+                    System.out.println("\n=== Método Divide y Vencerás ===");
+                    algoritmo = new DivideYVenceras(DCargadoCopia);
+                    tiempo = algoritmo.ejecutarConMedicion();
+                    System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                    System.out.println("Distancia: " + algoritmo.MejorDis);
+                    System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
+                    System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
+                    System.out.println("Calculadas: " + algoritmo.distanciacalculada());
+                    
+                    //Ejecutamos el Divide y Vencerás Optimizado
+                    DCargadoCopia = Dataset.copia(DCargado);
+                    Dataset.OrdenarDataset(DCargadoCopia);
+                    System.out.println("\n=== Método Divide y Vencerás Optimizado ===");
+                    algoritmo = new DivideYVencerasOpt(DCargadoCopia);
+                    tiempo = algoritmo.ejecutarConMedicion();
+                    System.out.printf("Tiempo: %.4f ms%n", tiempo);
+                    System.out.println("Distancia: " + algoritmo.MejorDis);
+                    System.out.println("Punto1: " + algoritmo.ParMejor.get(0).ID  + algoritmo.ParMejor.get(0));
+                    System.out.println("Punto2: " + algoritmo.ParMejor.get(1).ID  + algoritmo.ParMejor.get(1));
+                    System.out.println("Calculadas: " + algoritmo.distanciacalculada());
                         
                     break;
                 case 4: 
-
-                    int[] tallas = {1000, 2000, 3000, 4000, 5000};
+                    //Comparamos los tiempos promedios de todas las estrategias en base a diversos tamaños de dataset
+                    int[] tallas = {1000, 2000, 3000, 4000, 5000}; //Las tallas se pueden modificar pero con cuidado que peta el pc
                     int NExperimentos = 10;
 
                     System.out.println("Talla \t Exhaustivo \t ConPoda \t DivideYVenceras \t DivideYVencerasOpt");
@@ -159,27 +167,34 @@ public class Main {
                             //Dataset.OrdenarDataset(DCargadoCopia);
                             Exhaustivo ex1 = new Exhaustivo(DCargadoCopia);
                             sumExhaustivo += ex1.ejecutarConMedicion();
-                        
+                            
                             DCargadoCopia = Dataset.copia(DCargado);
                             Dataset.OrdenarDataset(DCargadoCopia);
                             ConPoda cp1 = new ConPoda(DCargadoCopia);
                             sumConPoda += cp1.ejecutarConMedicion();
-                        
+                            
                             DCargadoCopia = Dataset.copia(DCargado);
                             Dataset.OrdenarDataset(DCargadoCopia);
                             DivideYVenceras DV1 = new DivideYVenceras(DCargadoCopia);
                             sumDivide += DV1.ejecutarConMedicion();
-                                
+                            
                             DCargadoCopia = Dataset.copia(DCargado);
                             Dataset.OrdenarDataset(DCargadoCopia);
                             DivideYVencerasOpt DVO1 = new DivideYVencerasOpt(DCargadoCopia);
                             sumDivideOpt += DVO1.ejecutarConMedicion();
                             }
 
-                            System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n", talla, sumExhaustivo / NExperimentos, sumConPoda / NExperimentos, sumDivide / NExperimentos, sumDivideOpt / NExperimentos);
+                            //Mostramos los tiempos promedio para cada talla
+                            System.out.printf("%d\t%.4f\t\t%.4f\t\t%.4f\t\t\t%.4f%n", 
+                                talla, 
+                                sumExhaustivo / NExperimentos, 
+                                sumConPoda / NExperimentos, 
+                                sumDivide / NExperimentos, 
+                                sumDivideOpt / NExperimentos);
                         }
                     break;
                 case 5:
+                    //Comparamos dos estrategias específicas
                     int pareja;
                     do {
                         System.out.println("\n=== Comparaciones de Estrategias ===");
@@ -257,7 +272,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumExhaustivoDist / NExperimentos,
                                             sumDivideYVencerasDist / NExperimentos,
@@ -292,7 +307,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumExhaustivoDist / NExperimentos,
                                             sumDivideYVencerasOptDist / NExperimentos,
@@ -328,7 +343,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumConPodaDist / NExperimentos,
                                             sumDivideYVencerasDist / NExperimentos,
@@ -364,7 +379,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumConPodaDist / NExperimentos,
                                             sumDivideYVencerasOptDist / NExperimentos,
@@ -401,7 +416,7 @@ public class Main {
                                     
                                         }
 
-                                        System.out.printf("%d\t\t%.4f\t\t%.4f\t\t\t%.4f\t\t\t%.4f%n",
+                                        System.out.printf("%-8d %-15.4f %-5.4f %17.4f %23.4f%n",
                                             talla,
                                             sumDivideYVencerasDist / NExperimentos,
                                             sumDivideYVencerasOptDist / NExperimentos,
@@ -424,6 +439,7 @@ public class Main {
                     
                     break;
                 case 6:
+                    //Generar dataset en caso peor
                     List<Punto> datasetP = new ArrayList<>();
                     System.out.println("Cuantos datos generar");
                     N = sc.nextInt();
@@ -431,6 +447,7 @@ public class Main {
                     Dataset.GuardarDataset("Caso Peor"+N, datasetP);
                     break;
                 case 0:
+                    //Salir
                     System.out.println("\nGracias por la visita");
                     break;
             
@@ -440,7 +457,7 @@ public class Main {
             }
             
         } while (opcion != 0);
-        sc.close();
+        sc.close(); //Cerramos el scanner
 
     }
 }

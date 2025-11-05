@@ -5,7 +5,7 @@ import Datos.*;
 public class Exhaustivo extends Algoritmo{
 
     public Exhaustivo(List<Punto> dataset){
-        this.dataset = dataset;
+        this.dataset = dataset; //Este será el dataset a "evaluar"
     }
 
     @Override
@@ -17,13 +17,13 @@ public class Exhaustivo extends Algoritmo{
                 double d = this.DE.calcula(this.dataset.get(i), this.dataset.get(j));
 
                 if (d < distanciaMin) {
-                    distanciaMin = d;
-                    ParMejor.clear();
-                    ParMejor.add(this.dataset.get(i));
-                    ParMejor.add(this.dataset.get(j));
+                    distanciaMin = d; //Actualizamos la mejor distancia mínima
+                    ParMejor.clear(); //Limpiamos la lista del par mejor
+                    ParMejor.add(this.dataset.get(i)); //Añadimos el par mejor actual
+                    ParMejor.add(this.dataset.get(j)); //Añadimos el par mejor actual
                 }
             } 
         }
-        this.MejorDis = distanciaMin;
+        this.MejorDis = distanciaMin; //Guardamos la distancia mínima encontrada
     }
 }

@@ -6,7 +6,7 @@ import Datos.*;
 public class DivideYVenceras extends Algoritmo {
 
     public DivideYVenceras(List<Punto> dataset) {
-        this.dataset = dataset;
+        this.dataset = dataset; //Este será el dataset a "evaluar"
     }
 
     @Override
@@ -14,11 +14,11 @@ public class DivideYVenceras extends Algoritmo {
         List<Punto> puntosOrdenadosX = new ArrayList<>(dataset);
         List<Punto> puntosOrdenadosY = new ArrayList<>(dataset);
 
-        // Ordenar por X e Y
+        // Ordenamos por s e y
         Quicksort.Ordena(puntosOrdenadosX);
         Quicksort.OrdenaY(puntosOrdenadosY);
 
-        List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX, puntosOrdenadosY);
+        List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX, puntosOrdenadosY); //Ejecutamos el algoritmo recursivo
         if (resultado != null &&  resultado.size() == 2){
         // ParMejor.clear();
         // ParMejor.addAll(resultado);
@@ -28,7 +28,7 @@ public class DivideYVenceras extends Algoritmo {
     private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
         int n = puntosOrdenadosX.size();
         if (n <= 10) {
-            // Caso base: usar búsqueda exhaustiva
+            // Caso base: usamos búsqueda exhaustiva
             return buscarParExhaustivo(puntosOrdenadosX);
         }
 
@@ -50,14 +50,14 @@ public class DivideYVenceras extends Algoritmo {
         List<Punto> resultadoMenor = (distIzq < distDer) ? resIzquierda : resDerecha;
         double dmin = Math.min(distIzq, distDer);
 
-        // Construir franja de puntos cerca del punto de corte
+        //Construimos franja de puntos cerca del punto de corte
         List<Punto> franja = new ArrayList<>();
         for (Punto p : puntosOrdenadosX) {
             if (Math.abs(p.getX() - puntoCorte.getX()) < dmin) {
                 franja.add(p);
             }
         }
-        buscarParExhaustivo(franja);
+        buscarParExhaustivo(franja); //Buscamos en la franja
         return resultadoMenor;
     }
     private double calcularDistancia(List<Punto> par) {

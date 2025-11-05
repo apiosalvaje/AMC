@@ -6,7 +6,7 @@ import Datos.*;
 public class DivideYVencerasOpt extends Algoritmo {
 
     public DivideYVencerasOpt(List<Punto> dataset) {
-        this.dataset = dataset;
+        this.dataset = dataset; //Este será el dataset a "evaluar"
     }
 
     @Override
@@ -104,7 +104,5 @@ public class DivideYVencerasOpt extends Algoritmo {
         this.MejorDis = distanciaMin;
     }
     return this.ParMejor;
-}
-
-
+    }
 }

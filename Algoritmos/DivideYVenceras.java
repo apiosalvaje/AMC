@@ -12,20 +12,18 @@ public class DivideYVenceras extends Algoritmo {
     @Override
     public void run() {
         List<Punto> puntosOrdenadosX = new ArrayList<>(dataset);
-        List<Punto> puntosOrdenadosY = new ArrayList<>(dataset);
 
         // Ordenamos por s e y
         Quicksort.Ordena(puntosOrdenadosX);
-        Quicksort.OrdenaY(puntosOrdenadosY);
 
-        List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX, puntosOrdenadosY); //Ejecutamos el algoritmo recursivo
+        List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX); //Ejecutamos el algoritmo recursivo
         if (resultado != null &&  resultado.size() == 2){
         // ParMejor.clear();
         // ParMejor.addAll(resultado);
         }
     }
 
-    private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY) {
+    private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX) {
         int n = puntosOrdenadosX.size();
         if (n <= 20) {
             // Caso base: usamos búsqueda exhaustiva
@@ -38,11 +36,8 @@ public class DivideYVenceras extends Algoritmo {
         List<Punto> izquierdaX = puntosOrdenadosX.subList(0, mitad);
         List<Punto> derechaX = puntosOrdenadosX.subList(mitad, n);
 
-        List<Punto> izquierdaY = new ArrayList<>();
-        List<Punto> derechaY = new ArrayList<>();
-
-        List<Punto> resIzquierda = buscarParMasCercanoDivideYVenceras(izquierdaX, izquierdaY);
-        List<Punto> resDerecha = buscarParMasCercanoDivideYVenceras(derechaX, derechaY);
+        List<Punto> resIzquierda = buscarParMasCercanoDivideYVenceras(izquierdaX);
+        List<Punto> resDerecha = buscarParMasCercanoDivideYVenceras(derechaX);
 
         double distIzq = calcularDistancia(resIzquierda);
         double distDer = calcularDistancia(resDerecha);

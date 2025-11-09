@@ -13,20 +13,19 @@ public class DivideYVenceras extends Algoritmo {
     public void run() {
         List<Punto> puntosOrdenadosX = new ArrayList<>(dataset);
 
-        // Ordenamos por s e y
+        //Ordenamos por s e y
         Quicksort.Ordena(puntosOrdenadosX);
 
         List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX); //Ejecutamos el algoritmo recursivo
         if (resultado != null &&  resultado.size() == 2){
-        // ParMejor.clear();
-        // ParMejor.addAll(resultado);
+        
         }
     }
 
     private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX) {
         int n = puntosOrdenadosX.size();
         if (n <= 20) {
-            // Caso base: usamos búsqueda exhaustiva
+            //Caso base: usamos búsqueda exhaustiva
             return buscarParConPoda(puntosOrdenadosX);
         }
 

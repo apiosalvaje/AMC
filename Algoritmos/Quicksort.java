@@ -6,7 +6,7 @@ import Datos.*;
 
 public final class Quicksort { //Prohibimos la herencia de esta clase con "final"
     
-    // Ordenar por X
+    //Ordenamos por X
     public static void Ordena(List<Punto> lista) {
         quicksort(lista, 0, lista.size() - 1);
     }
@@ -29,7 +29,7 @@ public final class Quicksort { //Prohibimos la herencia de esta clase con "final
         quicksort(lista, pos + 1, ultimo);
     }
 
-    // Ordenar por Y
+    //Ordenamos por Y
     public static void OrdenaY(List<Punto> lista) {
         quicksortY(lista, 0, lista.size() - 1);
     }

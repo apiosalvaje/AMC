@@ -14,7 +14,7 @@ public class DivideYVencerasOpt extends Algoritmo {
         List<Punto> puntosOrdenadosX = new ArrayList<>(dataset);
         List<Punto> puntosOrdenadosY = new ArrayList<>(dataset);
 
-        // Ordenar por X e Y
+        //Ordenamos por X e Y
         Quicksort.Ordena(puntosOrdenadosX);
         Quicksort.OrdenaY(puntosOrdenadosY);
 
@@ -26,7 +26,7 @@ public class DivideYVencerasOpt extends Algoritmo {
     private List<Punto> buscarParMasCercanoOpt(List<Punto> puntosOrdenadosX, List<Punto> puntosOrdenadosY, double distanciaMinima) {
         int n = puntosOrdenadosX.size();
         if (n <= 10) {
-            // Caso base: usar búsqueda Con Poda
+            //Caso base: usar búsqueda Con Poda
             return buscarParConPoda(puntosOrdenadosX, distanciaMinima);
         }
 
@@ -39,7 +39,7 @@ public class DivideYVencerasOpt extends Algoritmo {
         List<Punto> izquierdaY = new ArrayList<>();
         List<Punto> derechaY = new ArrayList<>();
 
-        // Dividir ptsY en izquierdaY y derechaY basados en X
+        //Dividimos ptsY en izquierdaY y derechaY basados en X
         for (Punto p : puntosOrdenadosY) {
             if (p.getX() <= puntoCorte.getX()) {
                 izquierdaY.add(p);
@@ -59,7 +59,7 @@ public class DivideYVencerasOpt extends Algoritmo {
         List<Punto> resultadoMenor = (distIzq < distDer) ? resIzquierda : resDerecha;
         double dmin = Math.min(distIzq, distDer);
 
-        // Construir franja de puntos cerca del punto de corte
+        //Construimos franja de puntos cerca del punto de corte
         List<Punto> franja = new ArrayList<>();
         for (Punto p : puntosOrdenadosY) {
             if (Math.abs(p.getX() - puntoCorte.getX()) < dmin) {
@@ -92,7 +92,7 @@ public class DivideYVencerasOpt extends Algoritmo {
 
             double dx = Math.abs(p1.getX() - p2.getX());
             if (dx >= distanciaMin) {
-                break; // poda temprana si hace falta
+                break; //poda temprana si hace falta
             }
 
             double d = this.DE.calcula(p1, p2);

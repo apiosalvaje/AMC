@@ -16,10 +16,7 @@ public class DivideYVenceras extends Algoritmo {
         //Ordenamos por s e y
         Quicksort.Ordena(puntosOrdenadosX);
 
-        List<Punto> resultado = buscarParMasCercanoDivideYVenceras(puntosOrdenadosX); //Ejecutamos el algoritmo recursivo
-        if (resultado != null &&  resultado.size() == 2){
-        
-        }
+        buscarParMasCercanoDivideYVenceras(puntosOrdenadosX); //Ejecutamos el algoritmo recursivo
     }
 
     private List<Punto> buscarParMasCercanoDivideYVenceras(List<Punto> puntosOrdenadosX) {
